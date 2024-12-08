@@ -2,8 +2,8 @@ Projeto pessoal que integra Scrapping e GUI com objetivo de coletar informaçõe
 
 Pretendo voltar nesse código ainda para:
 
-Organizá-lo
-Coletar todos os diretores em caso de filmes com mais de 2
-Coletar casting
-Fazer a diferença entre nota pessoal e média dos usuários dos filmes
-Melhorar o gráfico de média de notas por décadas
+1. Organizá-lo
+2. Coletar todos os diretores em caso de filmes com mais de 2
+3. Coletar casting
+4. Fazer a diferença entre nota pessoal e média dos usuários dos filmes
+5. Melhorar o gráfico de média de notas por décadas
