@@ -72,7 +72,7 @@ def janela_resultados(ord_media, ord_filmes, qnt_filmes, media_nota, nome_bonito
         counting = 0
         for label in labels_diretor:
             name = ord_media[counting].split(' : ')
-            label.config(text=name[0])
+            label.config(text=name[0])  
             counting +=1
         counting = 0
         for label in labels_number:
@@ -127,7 +127,7 @@ def pagina_filmes_individual (slug, lista_diretor, nota):
         soup = BeautifulSoup(resposta.text, 'html.parser')
         nome_filme = soup.find('h1', class_="headline-1 filmtitle").find('span', class_='name')
         nome_filme = nome_filme.text.strip()
-        tag_ano = soup.find('div', class_='releaseyear')
+        tag_ano = soup.find('div', class_='metablock').find('div', class_='releaseyear')
         ano_filme = tag_ano.text.strip()
         tag_diretor = soup.find('span', class_='directorlist')
         if tag_diretor:
@@ -299,7 +299,6 @@ def main(nome_usuario):
         media_nota = contador2 /filmes_cm_nota
         print(f'média de notas de {nome_bonito}: {media_nota}')
 
-    print(filmes_cm_nota)
     informações.pop(0)
     informações_ord_filmes = informações.copy()
     informações_ord_media = informações.copy()
@@ -324,9 +323,6 @@ def main(nome_usuario):
             if index3_i == index3_j and index4_i < index4_j:
                 informações_ord_media[i], informações_ord_media[j] = informações_ord_media[j], informações_ord_media[i]
 
-
-    print(informações_ord_media)
-
     for i in range(tamanho_informações):
         for j in range(0, tamanho_informações - i - 1):
             filmes1 = float(informações_ord_filmes[j].split(' : ')[4])
@@ -340,8 +336,6 @@ def main(nome_usuario):
             index3_j, index4_j = pegar_indice(informações_ord_filmes[j])
             if index4_i == index4_j and index3_i < index3_j:
                 informações_ord_filmes[i], informações_ord_filmes[j] = informações_ord_filmes[j], informações_ord_filmes[i]
-
-    print(informações_ord_filmes)
 
     somas_decadas = []
 
@@ -371,8 +365,6 @@ def main(nome_usuario):
     for ano in anos:
         if ano not in lista_decada:
             lista_media.insert(anos.index(ano), 0)
-
-    print(lista_media)
 
     data = {'Décadas': anos, 
            'Média_Notas': lista_media}
