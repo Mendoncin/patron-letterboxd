@@ -130,7 +130,10 @@ def pagina_filmes_individual (slug, lista_diretor, nota):
         tag_ano = soup.find('div', class_='releaseyear')
         ano_filme = tag_ano.text.strip()
         tag_diretor = soup.find('span', class_='directorlist')
-        diretor = tag_diretor.text.strip()
+        if tag_diretor:
+            diretor = tag_diretor.text.strip()
+        else:
+            diretor = "Unknown"
         if diretor.endswith('\n…'):
             diretor = diretor.replace('\n…', '')
         while ',' in diretor:
@@ -245,9 +248,11 @@ def main(nome_usuario):
         tag_nome_exibicao = soup.find('h1', class_='person-display-name').find('span', class_='displayname')
         nome_bonito = tag_nome_exibicao.text.strip() 
         tag_filmes = soup.find('a', href=f'/{nome_usuario}/films/').find('span', class_='value')
-        qnt_filmes = int(tag_filmes.text)
-    else:
-        print('a')
+        if len(tag_filmes.text) > 3:
+            tag_filmes = tag_filmes.text.replace(",", "")
+            qnt_filmes = int(tag_filmes)
+        else:
+            qnt_filmes = int(tag_filmes.text)
 
     qnt_pag = math.ceil(qnt_filmes/72)
     for pagina in range(1, qnt_pag+1):
@@ -274,10 +279,12 @@ def main(nome_usuario):
                         contador2 += nota
                         informações, ano, nome = pagina_filmes_individual(slug, lista_diretor, nota)
                         lista_anota.append(f'{ano[:3]}0, {nota}')
+                        print(nome)
                     elif dado.startswith('</p') and notas == False:
                         nota = 'filme sem nota'
                         informações, ano, nome = pagina_filmes_individual(slug, lista_diretor, nota)
                         contador1 += 1
+                        print(nome)
                     elif dado.startswith('data-film-slug='):
                         lixo = dado.split('=')
                         slug = lixo[1]
